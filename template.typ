@@ -91,26 +91,37 @@
 
   // Chapter counter for "CHAPTER X" label
   let chapter-counter = counter("chapter")
+  // State: false until main body begins (after TOC)
+  let body-started = state("body-started", false)
 
   // Headings use heading font in primary colour
   show heading.where(level: 1): it => {
-    // New page before each chapter
-    pagebreak(weak: true)
-    chapter-counter.step()
-    set text(font: t.heading-font, fill: t.primary)
-    if t.show-chapter-label {
-      v(1cm)
-      text(
-        font: t.heading-font,
-        size: 11pt,
-        fill: t.primary,
-        weight: "bold",
-        smallcaps(upper(t.chapter-label) + " " + context chapter-counter.display()),
-      )
-      v(0.3cm)
+    context {
+      if body-started.get() {
+        // Main body chapter heading
+        pagebreak(weak: true)
+        chapter-counter.step()
+        set text(font: t.heading-font, fill: t.primary)
+        if t.show-chapter-label {
+          v(1cm)
+          text(
+            font: t.heading-font,
+            size: 11pt,
+            fill: t.primary,
+            weight: "bold",
+            smallcaps(upper(t.chapter-label) + " " + context chapter-counter.display()),
+          )
+          v(0.3cm)
+        }
+        text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
+        v(0.5cm)
+      } else {
+        // Front matter heading — plain, no chapter number, no forced pagebreak
+        set text(font: t.heading-font, fill: t.primary)
+        text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
+        v(0.5cm)
+      }
     }
-    text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
-    v(0.5cm)
   }
   show heading.where(level: 2): it => {
     set text(font: t.heading-font, fill: t.primary)
@@ -176,31 +187,29 @@
 
   // Abstract
   if abstract != [] {
-    page[
-      #align(center)[
-        #text(font: t.heading-font, size: 18pt, weight: "bold", fill: t.primary)[Abstract]
-        #v(0.3cm)
-        #line(length: 60%, stroke: 0.5pt + t.primary)
-      ]
-      #v(0.8cm)
-      #align(center, block(width: 85%, align(left, abstract)))
+    pagebreak(weak: true)
+    align(center)[
+      #text(font: t.heading-font, size: 18pt, weight: "bold", fill: t.primary)[Abstract]
+      #v(0.3cm)
+      #line(length: 60%, stroke: 0.5pt + t.primary)
     ]
+    v(0.8cm)
+    align(center, block(width: 85%, align(left, abstract)))
   }
 
   // Acknowledgements (optional)
   if show-acknowledgements and acknowledgements != none {
-    page[
-      #heading(outlined: false, numbering: none, "Acknowledgements")
-      #acknowledgements
-    ]
+    pagebreak(weak: true)
+    heading(outlined: false, numbering: none, "Acknowledgements")
+    acknowledgements
   }
 
   // Table of Contents
-  page[
-    #outline(depth: toc-depth, indent: 1em)
-  ]
+  pagebreak(weak: true)
+  outline(depth: toc-depth, indent: 1em)
 
   // ─── Arabic numerals for main body ───────────────────────────
+  pagebreak(weak: true)
   set page(numbering: "1", number-align: center)
   counter(page).update(1)
 
@@ -226,5 +235,6 @@
     }
   })
 
+  body-started.update(true)
   body
 }

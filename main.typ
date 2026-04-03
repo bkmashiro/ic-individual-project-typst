@@ -6,7 +6,7 @@
   supervisor: "Supervisor Name",
   report-type: "MSc Individual Project",
   degree: "MSc Computing",
-  date: datetime(year: 2026, month: 6, day: 1),
+  date: datetime.today(),
   abstract: [
     Your abstract goes here. Briefly describe what the project is about,
     the methods used, and the key findings.
