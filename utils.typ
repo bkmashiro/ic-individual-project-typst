@@ -35,13 +35,13 @@
 ]
 
 /// A blue informational note box.
-#let note(body, color: _ic-blue) = _callout("ℹ", "Note", color, body)
+#let note(body, color: _ic-blue) = _callout("i", "Note", color, body)
 
 /// An orange warning box.
-#let warning(body, color: _ic-orange) = _callout("⚠", "Warning", color, body)
+#let warning(body, color: _ic-orange) = _callout("!", "Warning", color, body)
 
 /// A green tip box.
-#let tip(body, color: _ic-green) = _callout("✦", "Tip", color, body)
+#let tip(body, color: _ic-green) = _callout("*", "Tip", color, body)
 
 /// A definition box with a term header.
 #let definition(body, term: "", color: _ic-navy) = block(
