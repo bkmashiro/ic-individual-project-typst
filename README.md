@@ -207,18 +207,24 @@ Call `#back-matter()` before bibliography and `#abbr-list()` to disable chapter 
 
 ## Logo Setup
 
-This template does not bundle the Imperial College logo due to copyright.
+This template does not bundle the Imperial College logo due to copyright. A placeholder is shown by default.
 
 To use the official IC logo:
-1. Download from [Imperial Brand Hub](https://www.imperial.ac.uk/brand-style-guide/) (IC login required) or ask your department
-2. Place it in your project as `figures/ICL_Logo_Blue.svg`
-3. Set in your document:
+
+1. Go to **[Imperial Brand Hub — Logo downloads](https://brand.imperial.ac.uk/document/36)**
+   - Requires Imperial SSO login (your `@imperial.ac.uk` account)
+   - Under **"Logo RGB Blue"**, download `IMPERIAL_logo_RGB_Blue_2024.svg`
+2. Place it in your project folder as `figures/ICL_Logo_Blue.svg`
+3. Set the path in your document:
    ```typst
-   logo: "figures/ICL_Logo_Blue.svg",
-   logo-width: 4cm,
+   #show: project.with(
+     // ...
+     logo: "figures/ICL_Logo_Blue.svg",
+     logo-width: 4cm,
+   )
    ```
 
-A placeholder logo is shown by default.
+Black and white variants are also available on the same page if needed.
 
 ---
 
