@@ -21,6 +21,7 @@
   // logo-width: 4cm,
   // show-acknowledgements: true,             // set false to skip that page
   // toc-depth: 3,
+  // header-side: "twoside",                   // "twoside" | "left" | "right"
   // department: "Department of Computing",
   // institution: "Imperial College of Science, Technology and Medicine",
 

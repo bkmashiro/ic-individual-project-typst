@@ -52,6 +52,8 @@
   toc-depth:            3,
   department:           "Department of Computing",
   institution:          "Imperial College of Science, Technology and Medicine",
+  // header-side: "twoside" | "left" | "right"
+  header-side:          "twoside",
   theme:                (:),
   body,
 ) = {
@@ -213,22 +215,51 @@
   set page(numbering: "1", number-align: center)
   counter(page).update(1)
 
-  // Twoside header: chapter name on outer edge
+  // Page header — shows current chapter title
   set page(header: context {
-    let page-num = counter(page).get().first()
-    let is-odd = calc.odd(page-num)
-    let headings = query(selector(heading.where(level: 1)).before(here()))
-    if headings.len() > 0 {
-      let h = headings.last()
+    // Find the heading that is AT or BEFORE the current position on this page
+    // Use after(here()) trick: get the first heading on/after page start,
+    // fall back to last heading before current position.
+    let before = query(selector(heading.where(level: 1)).before(here()))
+    let after  = query(selector(heading.where(level: 1)).after(here()))
+
+    // On a chapter-start page, the heading appears after `here()` in the
+    // document flow but is visually on this page. Check if the next heading
+    // starts on the same page.
+    let current-page = here().page()
+    let h = none
+
+    // Prefer: a heading that begins on this page (even if after cursor)
+    for item in after {
+      if item.location().page() == current-page {
+        h = item
+        break
+      }
+    }
+    // Fallback: last heading from before cursor
+    if h == none and before.len() > 0 {
+      h = before.last()
+    }
+
+    if h != none {
       let chapter-text = text(
         font: t.body-font,
         size: 10pt,
         style: "italic",
         h.body,
       )
-      if is-odd {
+      let page-num = counter(page).get().first()
+      let show-right = (
+        header-side == "right" or
+        (header-side == "twoside" and calc.odd(page-num))
+      )
+      let show-left = (
+        header-side == "left" or
+        (header-side == "twoside" and calc.even(page-num))
+      )
+      if show-right {
         align(right, chapter-text)
-      } else {
+      } else if show-left {
         align(left, chapter-text)
       }
       line(length: 100%, stroke: 0.3pt + t.primary)
