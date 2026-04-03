@@ -14,6 +14,25 @@
   acknowledgements: [
     Thanks to my supervisor, colleagues, and everyone who supported this work.
   ],
+
+  // ── Optional overrides (all have sensible defaults) ───────────────────────
+  // logo: "figures/ICL_Logo_Blue_2024.svg",  // swap to white/black variant
+  // logo-width: 4cm,
+  // show-acknowledgements: true,             // set false to skip that page
+  // toc-depth: 3,
+  // department: "Department of Computing",
+  // institution: "Imperial College of Science, Technology and Medicine",
+
+  // ── Theme customisation example ───────────────────────────────────────────
+  // Only override what you need; everything else keeps its default.
+  theme: (
+    // Use Imperial Navy instead of the default Imperial Blue
+    primary: rgb("#002147"),
+    // Slightly larger body text
+    body-size: 12.5pt,
+    // Looser line spacing
+    line-spacing: 0.75em,
+  ),
 )
 
 = Introduction

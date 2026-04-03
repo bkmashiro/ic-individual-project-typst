@@ -1,19 +1,62 @@
 // Imperial College London - Individual Project Template (Typst)
 // Ported from the LaTeX template by Marc Deisenroth (2015)
 
-#let imperial-blue = rgb("#003E74")
+// ─── THEME REFERENCE ──────────────────────────────────────────────────────────
+// Imperial Blue:       #003E74  (primary brand colour)
+// Imperial Light Blue: #D4EFFC  (accent / highlight)
+// Imperial Navy:       #002147  (dark variant)
+// Imperial Teal:       #009CBC
+// Imperial Green:      #02893B
+// Imperial Lime:       #BBCE00
+// Imperial Orange:     #D24000
+// Imperial Red:        #DD2501
+// Imperial Berry:      #8F1444
+// Imperial Violet:     #653098
+// Imperial Grey:       #9C9FA4
+// ─────────────────────────────────────────────────────────────────────────────
+
+#let _default-theme = (
+  // Fonts
+  body-font:    "Imperial Sans Text",
+  heading-font: "Imperial Sans Display",
+  code-font:    "Fira Code",
+  body-size:    12pt,
+
+  // Colors
+  primary:   rgb("#003E74"),  // Imperial Blue
+  secondary: rgb("#D4EFFC"),  // Imperial Light Blue
+  text:      black,
+  link:      rgb("#003E74"),
+
+  // Layout
+  line-spacing:      0.65em,
+  paragraph-spacing: 0.8em,
+)
 
 #let project(
-  title: "Project Title",
-  author: "Your Name",
-  supervisor: "Supervisor Name",
-  report-type: "MEng Individual Project",
-  degree: "Master of Engineering",
-  date: datetime.today(),
-  abstract: [],
-  acknowledgements: none,
+  title:                "Project Title",
+  author:               "Your Name",
+  supervisor:           "Supervisor Name",
+  report-type:          "MEng Individual Project",
+  degree:               "Master of Engineering",
+  date:                 datetime.today(),
+  abstract:             [],
+  acknowledgements:     none,
+  logo:                 "figures/ICL_Logo_Blue_2024.svg",
+  logo-width:           4cm,
+  show-acknowledgements: true,
+  toc-depth:            3,
+  department:           "Department of Computing",
+  institution:          "Imperial College of Science, Technology and Medicine",
+  theme:                (:),
   body,
 ) = {
+  // Merge user-supplied theme overrides with defaults
+  let t = _default-theme
+  for (k, v) in theme {
+    t.insert(k, v)
+  }
+
   // Document settings
   set document(title: title, author: author)
   set page(
@@ -21,12 +64,30 @@
     margin: (top: 2.5cm, bottom: 2.5cm, left: 3cm, right: 2.5cm),
     numbering: none,
   )
-  set text(font: "Imperial Sans Text", size: 12pt)
-  set par(justify: true, leading: 0.65em)
+  set text(font: t.body-font, size: t.body-size, fill: t.text)
+  set par(justify: true, leading: t.line-spacing, spacing: t.paragraph-spacing)
 
-  // Headings use Imperial Sans Display in Imperial Blue
+  // Links
+  show link: set text(fill: t.link)
+
+  // Inline code
+  show raw.where(block: false): set text(font: t.code-font)
+
+  // Code blocks
+  show raw.where(block: true): it => {
+    set text(font: t.code-font, size: 0.9em)
+    block(
+      fill: t.secondary,
+      inset: 0.8em,
+      radius: 4pt,
+      width: 100%,
+      it,
+    )
+  }
+
+  // Headings use heading font in primary colour
   show heading: it => {
-    set text(font: "Imperial Sans Display", fill: imperial-blue)
+    set text(font: t.heading-font, fill: t.primary)
     it
   }
   set heading(numbering: "1.1")
@@ -34,27 +95,27 @@
   // ─── Title Page ───────────────────────────────────────────────
   page(numbering: none)[
     #align(center)[
-      #image("figures/ICL_Logo_Blue_2024.svg", width: 4cm)
+      #image(logo, width: logo-width)
       #v(1cm)
 
       #text(
-        font: "Imperial Sans Display",
+        font: t.heading-font,
         size: 18pt,
         weight: "bold",
-        fill: imperial-blue,
+        fill: t.primary,
         upper(report-type),
       )
       #v(1cm)
-      #text(font: "Imperial Sans Display", size: 14pt, fill: imperial-blue, "Department of Computing")
+      #text(font: t.heading-font, size: 14pt, fill: t.primary, department)
       #v(0.4cm)
-      #text(font: "Imperial Sans Text", size: 11pt, "Imperial College of Science, Technology and Medicine")
+      #text(font: t.body-font, size: 11pt, institution)
       #v(1cm)
 
-      #line(length: 100%, stroke: 0.5pt + imperial-blue)
+      #line(length: 100%, stroke: 0.5pt + t.primary)
       #v(0.5cm)
-      #text(font: "Imperial Sans Display", size: 22pt, weight: "bold", fill: imperial-blue, title)
+      #text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, title)
       #v(0.5cm)
-      #line(length: 100%, stroke: 0.5pt + imperial-blue)
+      #line(length: 100%, stroke: 0.5pt + t.primary)
       #v(1.5cm)
 
       #grid(
@@ -91,8 +152,8 @@
     ]
   }
 
-  // Acknowledgements
-  if acknowledgements != none {
+  // Acknowledgements (optional)
+  if show-acknowledgements and acknowledgements != none {
     page[
       #heading(outlined: false, numbering: none, "Acknowledgements")
       #acknowledgements
@@ -101,7 +162,7 @@
 
   // Table of Contents
   page[
-    #outline(depth: 3, indent: 1em)
+    #outline(depth: toc-depth, indent: 1em)
   ]
 
   // ─── Arabic numerals for main body ───────────────────────────
@@ -116,7 +177,7 @@
     if headings.len() > 0 {
       let h = headings.last()
       let chapter-text = text(
-        font: "Imperial Sans Text",
+        font: t.body-font,
         size: 10pt,
         style: "italic",
         h.body,
@@ -126,7 +187,7 @@
       } else {
         align(left, chapter-text)
       }
-      line(length: 100%, stroke: 0.3pt + imperial-blue)
+      line(length: 100%, stroke: 0.3pt + t.primary)
     }
   })
 
