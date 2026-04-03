@@ -1,5 +1,5 @@
-#import "@preview/imperial-thesis:0.1.0": project, back-matter
-#import "utils.typ": *   // note: users need to copy utils.typ too
+#import "../template.typ": project, back-matter
+#import "../utils.typ": *
 
 #show: project.with(
   title: "Your Project Title",
