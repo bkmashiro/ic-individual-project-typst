@@ -10,22 +10,43 @@ A Typst port of the official LaTeX Individual Project template for Imperial Coll
 
 ## Usage
 
-### Requirements
+### Install Typst
 
-- [Typst](https://typst.app) v0.11+
-
-```bash
-# Install Typst via Homebrew
-brew install typst
-```
+| Platform | Command |
+|----------|---------|
+| macOS    | `brew install typst` |
+| Linux    | `cargo install typst-cli` or `snap install typst` |
+| Windows  | `winget install --id Typst.Typst` |
+| Any      | [Download from releases](https://github.com/typst/typst/releases) |
 
 ### Compile
 
+**macOS / Linux (bash):**
 ```bash
-typst compile main.typ
+bash build.sh
+# or
+make
+# or manually
+typst compile main.typ main.pdf --font-path fonts/
 ```
 
-Or use the Typst web app / VS Code extension for live preview.
+**Windows (PowerShell):**
+```powershell
+.\build.ps1
+# or manually
+typst compile main.typ main.pdf --font-path fonts/
+```
+
+**Live preview (all platforms):**
+```bash
+typst watch main.typ main.pdf --font-path fonts/
+# or
+make watch
+```
+
+> **Note:** `--font-path fonts/` is required to load the Imperial Sans typeface bundled in `fonts/`.
+
+Or use the [Typst web app](https://typst.app) / VS Code extension for live preview (upload the `fonts/` folder to enable Imperial Sans).
 
 ### Customise
 
