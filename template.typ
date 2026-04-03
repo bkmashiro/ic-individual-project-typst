@@ -155,12 +155,12 @@
         size: 18pt,
         weight: "bold",
         fill: t.primary,
-        upper(report-type),
+        smallcaps(report-type),
       )
       #v(1cm)
-      #text(font: t.heading-font, size: 14pt, fill: t.primary, department)
+      #text(font: t.heading-font, size: 14pt, fill: t.primary, smallcaps(department))
       #v(0.4cm)
-      #text(font: t.body-font, size: 11pt, institution)
+      #text(font: t.body-font, size: 11pt, smallcaps(institution))
       #v(1cm)
 
       #line(length: 100%, stroke: 0.5pt + t.primary)
