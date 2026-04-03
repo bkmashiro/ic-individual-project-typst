@@ -170,4 +170,4 @@ Conclusion goes here.
 
 #abbr-list()
 
-#bibliography("refs.bib", style: "apa")
+#bibliography("references.bib", style: "elsevier-vancouver")
