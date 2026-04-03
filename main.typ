@@ -1,4 +1,4 @@
-#import "template.typ": project
+#import "template.typ": project, back-matter
 #import "utils.typ": *
 
 #show: project.with(
@@ -167,6 +167,8 @@ Full ablation results are reported in the supplementary material.
 = Conclusion
 
 Conclusion goes here.
+
+#back-matter()
 
 #abbr-list()
 

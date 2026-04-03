@@ -95,12 +95,14 @@
   let chapter-counter = counter("chapter")
   // State: false until main body begins (after TOC)
   let body-started = state("body-started", false)
+  // State: true when in back matter (no chapter numbers, no pagebreak)
+  let back-matter = state("back-matter", false)
 
   // Headings use heading font in primary colour
   show heading.where(level: 1): it => {
     context {
-      if body-started.get() {
-        // Main body chapter heading
+      if body-started.get() and not back-matter.get() {
+        // Main body chapter heading — with CHAPTER X label and pagebreak
         pagebreak(weak: true)
         chapter-counter.step()
         set text(font: t.heading-font, fill: t.primary)
@@ -118,7 +120,7 @@
         text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
         v(0.5cm)
       } else {
-        // Front matter heading — plain, no chapter number, no forced pagebreak
+        // Front matter OR back matter heading — plain, no chapter number, no forced pagebreak
         set text(font: t.heading-font, fill: t.primary)
         text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
         v(0.5cm)
@@ -269,3 +271,10 @@
   body-started.update(true)
   body
 }
+
+/// Call this before bibliography / abbr-list to suppress chapter numbering.
+/// Example:
+///   #back-matter()
+///   #abbr-list()
+///   #bibliography("references.bib", style: "elsevier-vancouver")
+#let back-matter() = state("back-matter", false).update(true)
