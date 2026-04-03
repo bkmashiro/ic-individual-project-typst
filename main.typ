@@ -28,6 +28,16 @@
   // ── Theme customisation example ───────────────────────────────────────────
   // Only override what you need; everything else keeps its default.
   theme: (
+    // Fonts — default is Times New Roman.
+    // To use Imperial Sans, compile with: typst compile main.typ --font-path fonts/
+    // and uncomment the lines below:
+    // body-font:    ("Imperial Sans Text",    "Times New Roman", "serif"),
+    // heading-font: ("Imperial Sans Display",  "Times New Roman", "serif"),
+    //
+    // Other options:
+    // body-font: "Georgia",
+    // body-font: "Linux Libertine",
+
     // Use Imperial Navy instead of the default Imperial Blue
     primary: rgb("#002147"),
     // Slightly larger body text
