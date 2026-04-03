@@ -119,8 +119,15 @@
         }
         text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
         v(0.5cm)
+      } else if back-matter.get() {
+        // Back matter heading — new page, but no CHAPTER X label
+        pagebreak(weak: true)
+        set text(font: t.heading-font, fill: t.primary)
+        v(1cm)
+        text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
+        v(0.5cm)
       } else {
-        // Front matter OR back matter heading — plain, no chapter number, no forced pagebreak
+        // Front matter heading — plain, no chapter number, no forced pagebreak
         set text(font: t.heading-font, fill: t.primary)
         text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
         v(0.5cm)
