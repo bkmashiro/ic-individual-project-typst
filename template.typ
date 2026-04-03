@@ -19,8 +19,8 @@
   // Fonts
   // Default: Times New Roman (universally available).
   // For Imperial branding, set body-font/heading-font in theme: and compile with --font-path fonts/
-  body-font:    ("Times New Roman", "Times", "serif"),
-  heading-font: ("Times New Roman", "Times", "serif"),
+  body-font:    ("Times New Roman", "Linux Libertine", "Times", "serif"),
+  heading-font: ("Times New Roman", "Linux Libertine", "Times", "serif"),
   code-font:    ("Courier New", "Courier", "monospace"),
   body-size:    12pt,
 
