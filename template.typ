@@ -70,7 +70,7 @@
     margin: (top: 2.5cm, bottom: 2.5cm, left: 3cm, right: 2.5cm),
     numbering: none,
   )
-  set text(font: t.body-font, size: t.body-size, fill: t.text)
+  set text(font: t.body-font, size: t.body-size, fill: t.text, ligatures: false, discretionary-ligatures: false)
   set par(justify: true, leading: t.line-spacing, spacing: t.paragraph-spacing)
 
   // Links
