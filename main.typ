@@ -4,8 +4,8 @@
   title: "Your Project Title",
   author: "Your Name",
   supervisor: "Supervisor Name",
-  report-type: "MEng Individual Project",
-  degree: "Master of Engineering (MEng)",
+  report-type: "MSc Individual Project",
+  degree: "MSc Computing",
   date: datetime(year: 2026, month: 6, day: 1),
   abstract: [
     Your abstract goes here. Briefly describe what the project is about,
@@ -47,9 +47,14 @@ This is the introduction chapter. Use `=` for chapters (level 1),
 
 @fig:logo shows the Imperial College logo.
 
+@example2024 showed that example-driven research can be highly effective.
+Further reading can be found in @textbook2023, which provides a comprehensive
+overview of the field.
+
 = Background
 
-Background and related work goes here.
+Background and related work goes here. As described in @textbook2023, the
+foundations of computing have evolved significantly over the past decades.
 
 = Contribution
 
@@ -63,5 +68,4 @@ Results and evaluation go here.
 
 Conclusion goes here.
 
-// Bibliography — create a refs.bib file and uncomment:
-// #bibliography("refs.bib", style: "apa")
+#bibliography("refs.bib", style: "apa")

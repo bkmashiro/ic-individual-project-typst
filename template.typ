@@ -31,6 +31,10 @@
   // Layout
   line-spacing:      0.65em,
   paragraph-spacing: 0.8em,
+
+  // Chapter labels
+  show-chapter-label: true,
+  chapter-label:      "Chapter",
 )
 
 #let project(
@@ -85,8 +89,34 @@
     )
   }
 
+  // Chapter counter for "CHAPTER X" label
+  let chapter-counter = counter("chapter")
+
   // Headings use heading font in primary colour
-  show heading: it => {
+  show heading.where(level: 1): it => {
+    // New page before each chapter
+    pagebreak(weak: true)
+    chapter-counter.step()
+    set text(font: t.heading-font, fill: t.primary)
+    if t.show-chapter-label {
+      v(1cm)
+      text(
+        font: t.heading-font,
+        size: 11pt,
+        fill: t.primary,
+        weight: "bold",
+        smallcaps(upper(t.chapter-label) + " " + context chapter-counter.display()),
+      )
+      v(0.3cm)
+    }
+    text(font: t.heading-font, size: 22pt, weight: "bold", fill: t.primary, it.body)
+    v(0.5cm)
+  }
+  show heading.where(level: 2): it => {
+    set text(font: t.heading-font, fill: t.primary)
+    it
+  }
+  show heading.where(level: 3): it => {
     set text(font: t.heading-font, fill: t.primary)
     it
   }
@@ -147,8 +177,13 @@
   // Abstract
   if abstract != [] {
     page[
-      #heading(outlined: false, numbering: none, "Abstract")
-      #abstract
+      #align(center)[
+        #text(font: t.heading-font, size: 18pt, weight: "bold", fill: t.primary)[Abstract]
+        #v(0.3cm)
+        #line(length: 60%, stroke: 0.5pt + t.primary)
+      ]
+      #v(0.8cm)
+      #align(center, block(width: 85%, align(left, abstract)))
     ]
   }
 
