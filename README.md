@@ -1,5 +1,7 @@
 # Imperial College London — Individual Project Template (Typst)
 
+> **Typst Universe:** `#import "@preview/imperial-thesis:0.1.0": project, back-matter`
+
 A Typst port of the Imperial College London Individual Project / Thesis template, using official brand assets.
 
 **[View example PDF](https://github.com/bkmashiro/ic-individual-project-typst/blob/main/example.pdf)**
@@ -22,6 +24,16 @@ A Typst port of the Imperial College London Individual Project / Thesis template
 ---
 
 ## Quick Start
+
+### Option A — Typst Universe (recommended)
+
+```bash
+typst init @preview/imperial-thesis
+cd imperial-thesis
+typst compile main.typ output.pdf
+```
+
+### Option B — Clone manually
 
 ### 1. Install Typst
 
@@ -106,7 +118,7 @@ GitHub Actions will automatically compile and upload the PDF on every push.
   date:                 datetime.today(),        // or datetime(year:, month:, day:)
   abstract:             [Your abstract text.],
   acknowledgements:     [Optional acknowledgements.],
-  logo:                 "figures/ICL_Logo_Blue_2024.svg",
+  logo:                 "figures/placeholder-logo.svg",
   logo-width:           4cm,
   department:           "Department of Computing",
   institution:          "Imperial College of Science, Technology and Medicine",
@@ -190,6 +202,23 @@ Call `#back-matter()` before bibliography and `#abbr-list()` to disable chapter 
 #abbr-list()
 #bibliography("references.bib", style: "elsevier-vancouver")
 ```
+
+---
+
+## Logo Setup
+
+This template does not bundle the Imperial College logo due to copyright.
+
+To use the official IC logo:
+1. Download from [Imperial Brand Hub](https://www.imperial.ac.uk/brand-style-guide/) (IC login required) or ask your department
+2. Place it in your project as `figures/ICL_Logo_Blue.svg`
+3. Set in your document:
+   ```typst
+   logo: "figures/ICL_Logo_Blue.svg",
+   logo-width: 4cm,
+   ```
+
+A placeholder logo is shown by default.
 
 ---
 

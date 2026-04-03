@@ -48,7 +48,7 @@
   date:                 datetime.today(),
   abstract:             [],
   acknowledgements:     none,
-  logo:                 "figures/ICL_Logo_Blue_2024.svg",
+  logo:                 "figures/placeholder-logo.svg",
   logo-width:           4cm,
   show-acknowledgements: true,
   toc-depth:            3,
