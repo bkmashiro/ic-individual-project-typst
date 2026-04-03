@@ -4,7 +4,7 @@
 
 A Typst port of the Imperial College London Individual Project / Thesis template, using official brand assets.
 
-**[View example PDF](https://github.com/bkmashiro/ic-individual-project-typst/blob/main/example.pdf)**
+**[View example PDF](https://github.com/bkmashiro/ic-individual-project-typst/blob/0fec70908141a8095d9f9c871bf5535984e6972e/example.pdf)**
 
 ---
 
@@ -84,7 +84,7 @@ GitHub Actions will automatically compile and upload the PDF on every push.
 
 ## Project Structure
 
-```
+```text
 .
 ├── main.typ            # Your document — edit this
 ├── template.typ        # Template engine — title page, styles, layout

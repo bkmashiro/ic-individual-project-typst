@@ -9,7 +9,7 @@ repository = "https://github.com/bkmashiro/ic-individual-project-typst"
 keywords = ["thesis", "imperial", "university", "template"]
 categories = ["thesis"]
 compiler = "0.11.0"
-exclude = ["example.pdf", "build.sh", "build.ps1", "Makefile", ".github", "fonts/", "figures/IMPERIAL_I_*.svg"]
+exclude = ["example.pdf", "build.sh", "build.ps1", "Makefile", ".github", "fonts/", "figures/IMPERIAL_I_*.svg", "main.pdf"]
 
 [template]
 path = "template"

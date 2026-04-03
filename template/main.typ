@@ -1,5 +1,5 @@
-#import "../template.typ": project, back-matter
-#import "../utils.typ": *
+#import "@preview/imperial-thesis:0.1.0": project, back-matter
+#import "@preview/imperial-thesis:0.1.0": *
 
 #show: project.with(
   title: "Your Project Title",
