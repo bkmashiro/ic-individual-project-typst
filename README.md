@@ -1,16 +1,29 @@
 # Imperial College London — Individual Project Template (Typst)
 
-A Typst port of the official LaTeX Individual Project template for Imperial College London (Department of Computing).
+A Typst port of the Imperial College London Individual Project / Thesis template, using official brand assets.
 
-> Original LaTeX template by Marc Deisenroth (2015).
+**[View example PDF](https://github.com/bkmashiro/ic-individual-project-typst/blob/main/example.pdf)**
 
-## Preview
+---
 
-<!-- Add a screenshot of the compiled PDF here -->
+## Features
 
-## Usage
+- Official Imperial Sans typeface (Display + Text, all weights)
+- Official 2024 IC logo (SVG, blue variant)
+- Imperial Blue (`#003E74`) colour scheme with full brand palette
+- Title page matching the official LaTeX template layout
+- Roman-numeral front matter: Abstract, Acknowledgements, Table of Contents
+- Numbered chapters with `CHAPTER X` label, auto new-page
+- Twoside/left/right configurable page header
+- Back matter (Bibliography, List of Abbreviations) — new page, no chapter number
+- Fully configurable via `theme`, `logo`, `department`, `header-side`, and more
+- Helper library `utils.typ`: callout boxes, tables, code blocks, equations, abbreviation tracking
 
-### Install Typst
+---
+
+## Quick Start
+
+### 1. Install Typst
 
 | Platform | Command |
 |----------|---------|
@@ -19,72 +32,169 @@ A Typst port of the official LaTeX Individual Project template for Imperial Coll
 | Windows  | `winget install --id Typst.Typst` |
 | Any      | [Download from releases](https://github.com/typst/typst/releases) |
 
-### Compile
+### 2. Clone & compile
 
-**macOS / Linux (bash):**
 ```bash
-bash build.sh
-# or
-make
-# or manually
-typst compile main.typ main.pdf --font-path fonts/
+git clone https://github.com/bkmashiro/ic-individual-project-typst.git
+cd ic-individual-project-typst
+typst compile main.typ output.pdf --font-path fonts/
 ```
 
-**Windows (PowerShell):**
-```powershell
-.\build.ps1
-# or manually
-typst compile main.typ main.pdf --font-path fonts/
-```
+> `--font-path fonts/` is required to load the bundled Imperial Sans fonts.
 
-**Live preview (all platforms):**
-```bash
-typst watch main.typ main.pdf --font-path fonts/
-# or
-make watch
-```
+### 3. Edit `main.typ`
 
-> **Note:** `--font-path fonts/` is required to load the Imperial Sans typeface bundled in `fonts/`.
-
-Or use the [Typst web app](https://typst.app) / VS Code extension for live preview (upload the `fonts/` folder to enable Imperial Sans).
-
-### Customise
-
-Edit `main.typ` and fill in your details:
+Fill in your details at the top:
 
 ```typst
 #show: project.with(
-  title: "Your Project Title",
-  author: "Your Name",
-  supervisor: "Supervisor Name",
+  title:       "Your Project Title",
+  author:      "Your Name",
+  supervisor:  "Supervisor Name",
   report-type: "MEng Individual Project",
-  degree: "Master of Engineering (MEng)",
-  date: datetime(year: 2026, month: 6, day: 1),
-  abstract: [ ... ],
-  acknowledgements: [ ... ],
+  degree:      "Master of Engineering (MEng)",
 )
 ```
 
-### Bibliography
+---
 
-Create a `refs.bib` file and uncomment the last line in `main.typ`:
+## Build Scripts
 
-```typst
-#bibliography("refs.bib", style: "apa")
-```
+| Platform       | Command         |
+|----------------|-----------------|
+| macOS / Linux  | `bash build.sh` or `make` |
+| Windows        | `.\build.ps1`   |
+| Live preview   | `make watch`    |
 
-## Structure
+GitHub Actions will automatically compile and upload the PDF on every push.
+
+---
+
+## Project Structure
 
 ```
 .
-├── main.typ          # Main document — edit this
-├── template.typ      # Template logic — usually no need to edit
+├── main.typ            # Your document — edit this
+├── template.typ        # Template engine — title page, styles, layout
+├── utils.typ           # Helper components (boxes, tables, equations, abbr)
+├── references.bib      # Bibliography entries
+├── example.pdf         # Compiled example output
 ├── figures/
-│   ├── imperial.pdf  # IC logo (official)
-│   └── imperial2.pdf
-└── refs.bib          # (create this for bibliography)
+│   ├── ICL_Logo_Blue_2024.svg   # Official IC logo (blue, 2024)
+│   └── IMPERIAL_I_*.svg         # Official Imperial I decorative assets
+├── fonts/
+│   ├── ImperialSansDisplay-*.ttf
+│   └── ImperialSansText-*.ttf
+├── Makefile
+├── build.sh
+└── build.ps1
 ```
 
-## Reference
+---
 
-Original LaTeX template: [Imperial College DoC](https://www.imperial.ac.uk/computing)
+## Configuration Reference
+
+### `project()` parameters
+
+```typst
+#show: project.with(
+  title:                "Project Title",
+  author:               "Your Name",
+  supervisor:           "Supervisor Name",
+  report-type:          "MEng Individual Project",
+  degree:               "Master of Engineering (MEng)",
+  date:                 datetime.today(),        // or datetime(year:, month:, day:)
+  abstract:             [Your abstract text.],
+  acknowledgements:     [Optional acknowledgements.],
+  logo:                 "figures/ICL_Logo_Blue_2024.svg",
+  logo-width:           4cm,
+  department:           "Department of Computing",
+  institution:          "Imperial College of Science, Technology and Medicine",
+  show-acknowledgements: true,
+  toc-depth:            3,
+  header-side:          "twoside",   // "twoside" | "left" | "right"
+  theme:                (:),         // see Theme section below
+)
+```
+
+### Theme customisation
+
+```typst
+theme: (
+  // Fonts
+  body-font:    "Imperial Sans Text",
+  heading-font: "Imperial Sans Display",
+  code-font:    "Courier New",
+  body-size:    12pt,
+
+  // Colours (Imperial brand palette)
+  primary:   rgb("#003E74"),   // Imperial Blue
+  secondary: rgb("#D4EFFC"),   // Imperial Light Blue
+  text:      black,
+  link:      rgb("#003E74"),
+
+  // Layout
+  line-spacing:      0.65em,
+  paragraph-spacing: 0.8em,
+
+  // Chapter labels
+  show-chapter-label: true,
+  chapter-label:      "Chapter",
+)
+```
+
+#### Imperial brand colours
+
+| Name             | Hex       |
+|------------------|-----------|
+| Imperial Blue    | `#003E74` |
+| Imperial Navy    | `#002147` |
+| Imperial Light Blue | `#D4EFFC` |
+| Imperial Teal    | `#009CBC` |
+| Imperial Green   | `#02893B` |
+| Imperial Lime    | `#BBCE00` |
+| Imperial Orange  | `#D24000` |
+| Imperial Red     | `#DD2501` |
+| Imperial Berry   | `#8F1444` |
+| Imperial Violet  | `#653098` |
+| Imperial Grey    | `#9C9FA4` |
+
+---
+
+## Helper Components (`utils.typ`)
+
+Import with `#import "utils.typ": *`
+
+| Component | Usage |
+|-----------|-------|
+| `#note[...]` | Blue info box |
+| `#warning[...]` | Orange warning box |
+| `#tip[...]` | Green tip box |
+| `#definition(term: "CNN")[...]` | Definition box |
+| `#summary[...]` | Grey chapter summary box |
+| `#badge("Draft")` | Inline colour pill |
+| `#todo("msg")` | Orange TODO marker |
+| `#code-block(lang: "python", filename: "main.py")[...]` | Styled code block |
+| `#ic-table(headers: (...), rows: (...))` | Imperial-styled table |
+| `#ic-figure(content, caption: "...", label: <fig:x>)` | Figure wrapper |
+| `#eq($...$, label: <eq:x>)` | Numbered equation |
+| `#abbr("CNN", "Convolutional Neural Network")` | First-use expansion |
+| `#abbr-list()` | Print all abbreviations |
+
+## Back Matter
+
+Call `#back-matter()` before bibliography and `#abbr-list()` to disable chapter numbering for those sections:
+
+```typst
+#back-matter()
+#abbr-list()
+#bibliography("references.bib", style: "elsevier-vancouver")
+```
+
+---
+
+## Credits
+
+- Original LaTeX template by [Marc Deisenroth](https://www.imperial.ac.uk/people/m.deisenroth) (2015)
+- Official brand assets from [Imperial College London Brand Hub](https://brand.imperial.ac.uk)
+- Typst port: [bkmashiro](https://github.com/bkmashiro)
