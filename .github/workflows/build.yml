@@ -15,8 +15,15 @@ jobs:
       - name: Install Typst
         uses: typst-community/setup-typst@v3
 
+      # Install package locally so @local/imperial-thesis:0.1.0 resolves
+      - name: Install package locally
+        run: |
+          PKG_DIR="$HOME/.local/share/typst/packages/local/imperial-thesis/0.1.0"
+          mkdir -p "$PKG_DIR"
+          cp -r . "$PKG_DIR"
+
       - name: Compile PDF
-        run: typst compile main.typ example.pdf --font-path fonts/
+        run: typst compile main.typ example.pdf
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
