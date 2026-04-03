@@ -17,9 +17,11 @@
 
 #let _default-theme = (
   // Fonts
-  body-font:    "Imperial Sans Text",
-  heading-font: "Imperial Sans Display",
-  code-font:    "Fira Code",
+  // Imperial Sans is bundled in fonts/ — load with: typst compile main.typ --font-path fonts/
+  // Falls back to the system font if not found.
+  body-font:    ("Imperial Sans Text", "Helvetica Neue", "Arial", "Liberation Sans"),
+  heading-font: ("Imperial Sans Display", "Helvetica Neue", "Arial", "Liberation Sans"),
+  code-font:    ("Fira Code", "Courier New", "monospace"),
   body-size:    12pt,
 
   // Colors
