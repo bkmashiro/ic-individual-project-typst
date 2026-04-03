@@ -22,7 +22,7 @@ This is the introduction chapter. Use `=` for chapters (level 1),
 `==` for sections, `===` for subsections.
 
 #figure(
-  image("figures/ICL_Logo_Blue.png", width: 40%),
+  image("figures/ICL_Logo_Blue_2024.svg", width: 40%),
   caption: [Imperial College Logo.],
 ) <fig:logo>
 

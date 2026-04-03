@@ -34,7 +34,7 @@
   // ─── Title Page ───────────────────────────────────────────────
   page(numbering: none)[
     #align(center)[
-      #image("figures/ICL_Logo_Blue.png", width: 4cm)
+      #image("figures/ICL_Logo_Blue_2024.svg", width: 4cm)
       #v(1cm)
 
       #text(
